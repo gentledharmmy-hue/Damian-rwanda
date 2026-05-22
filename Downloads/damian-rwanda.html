@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damian | Your Rwanda Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a6b3c;
+    --green-light: #2d9b5a;
+    --gold: #c8953a;
+    --cream: #faf6ef;
+    --dark: #111a14;
+    --text: #2c3e30;
+    --muted: #6b7c6e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--cream); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 60px 20px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(26,107,60,0.35) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 20%, rgba(200,149,58,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-flag { display: flex; gap: 6px; margin-bottom: 32px; animation: fadeDown 0.8s ease both; }
+  .flag-stripe { width: 40px; height: 8px; border-radius: 4px; }
+  .flag-stripe.blue   { background: #20a4d8; }
+  .flag-stripe.yellow { background: #e5be01; }
+  .flag-stripe.green  { background: #008f59; }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 18px; animation: fadeDown 0.9s ease 0.1s both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 7rem);
+    color: #fff; line-height: 1; margin-bottom: 12px; animation: fadeDown 1s ease 0.2s both;
+  }
+  .hero h1 span { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); color: rgba(255,255,255,0.6);
+    max-width: 500px; line-height: 1.7; margin-bottom: 44px; animation: fadeDown 1s ease 0.35s both;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #25D366; color: #fff; text-decoration: none;
+    font-weight: 500; font-size: 1rem; padding: 16px 32px; border-radius: 50px;
+    transition: transform 0.2s, box-shadow 0.2s; animation: fadeDown 1s ease 0.5s both;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.3);
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,0.45); }
+  .hero-cta svg { width: 22px; height: 22px; fill: #fff; }
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,0.3); font-size: 0.75rem; letter-spacing: 0.15em;
+    text-transform: uppercase; animation: bounce 2s infinite 1.5s;
+  }
+
+  /* INTRO */
+  .intro { background: var(--green); color: #fff; padding: 80px 24px; text-align: center; }
+  .intro p {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 3vw, 1.75rem);
+    max-width: 680px; margin: 0 auto; line-height: 1.7; opacity: 0.95;
+  }
+  .intro p em { color: var(--gold); font-style: italic; }
+
+  /* SERVICES */
+  .services { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--green-light); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--dark); margin-bottom: 60px; max-width: 500px;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .card {
+    background: #fff; border-radius: 20px;
+    border: 1.5px solid rgba(26,107,60,0.1);
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--gold));
+    transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(26,107,60,0.12); border-color: rgba(26,107,60,0.2); }
+  .card:hover::after { transform: scaleX(1); }
+
+  /* Card image */
+  .card-img {
+    width: 100%; height: 200px; object-fit: cover;
+    display: block; border-radius: 0;
+  }
+  .card-body { padding: 32px 32px 36px; }
+
+  .card-icon { font-size: 2.4rem; margin-bottom: 20px; display: block; }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--dark); margin-bottom: 12px; }
+  .card p { font-size: 0.95rem; color: var(--muted); line-height: 1.7; }
+
+  /* WHO */
+  .who {
+    background: linear-gradient(135deg, var(--dark) 0%, #1a3320 100%);
+    padding: 100px 24px; text-align: center; color: #fff;
+  }
+  .who .section-label { color: var(--gold); }
+  .who .section-title { color: #fff; max-width: 600px; margin: 0 auto 50px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; max-width: 700px; margin: 0 auto 60px; }
+  .pill {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85); padding: 12px 24px; border-radius: 50px;
+    font-size: 0.9rem; backdrop-filter: blur(4px); transition: background 0.2s, border-color 0.2s;
+  }
+  .pill:hover { background: rgba(200,149,58,0.2); border-color: var(--gold); color: #fff; }
+
+  /* CONTACT */
+  .contact { padding: 100px 24px; max-width: 700px; margin: 0 auto; text-align: center; }
+  .contact .section-title { margin: 0 auto 16px; }
+  .contact-desc { color: var(--muted); font-size: 1rem; line-height: 1.7; margin-bottom: 44px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 12px; text-decoration: none;
+    font-size: 1rem; font-weight: 500; padding: 18px 36px; border-radius: 50px;
+    transition: transform 0.2s, box-shadow 0.2s; min-width: 280px; justify-content: center;
+  }
+  .contact-link.whatsapp { background: #25D366; color: #fff; box-shadow: 0 8px 28px rgba(37,211,102,0.25); }
+  .contact-link.whatsapp:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(37,211,102,0.4); }
+  .contact-link svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* FOOTER */
+  footer { background: var(--dark); color: rgba(255,255,255,0.4); text-align: center; padding: 30px 20px; font-size: 0.82rem; letter-spacing: 0.05em; }
+  footer span { color: var(--gold); }
+
+  /* DIVIDER */
+  .divider { width: 48px; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold)); border-radius: 2px; margin: 0 auto 20px; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-flag">
+    <div class="flag-stripe blue"></div>
+    <div class="flag-stripe yellow"></div>
+    <div class="flag-stripe green"></div>
+  </div>
+  <p class="hero-eyebrow">Your local connection in Kigali</p>
+  <h1>Hi, I'm <span>Damian</span></h1>
+  <p class="hero-sub">Coming to Rwanda? I'll make sure you feel at home — from the moment your plane lands to the last sunset you see.</p>
+  <a class="hero-cta" href="https://wa.me/250798334383?text=Hello%20Damian!%20I%20found%20your%20page%20and%20I%20need%20your%20help%20visiting%20Rwanda." target="_blank">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Chat with me on WhatsApp
+  </a>
+  <p class="scroll-hint">↓ scroll</p>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <p>Rwanda is <em>the land of a thousand hills</em> — and I know every one of them. Let me be your trusted guide, host, and friend while you're here.</p>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <p class="section-label">What I offer</p>
+  <h2 class="section-title">Everything you need, sorted.</h2>
+  <div class="cards">
+
+    <div class="card">
+      <img class="card-img" src="airport.jpg" alt="Kigali International Airport pickup">
+      <div class="card-body">
+        <span class="card-icon">✈️</span>
+        <h3>Airport Pickup</h3>
+        <p>Arriving at Kigali International Airport? I'll be there waiting for you with a warm welcome. No taxi stress, no confusion — just a friendly face to kick off your Rwanda experience right.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="apartment.jpg" alt="Comfortable apartment accommodation in Kigali">
+      <div class="card-body">
+        <span class="card-icon">🏡</span>
+        <h3>Accommodation</h3>
+        <p>Whether you're staying a few nights or a few months, I'll connect you with nice, affordable, and comfortable places to stay — from cozy guesthouses to fully furnished apartments.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img class="card-img" src="food.jpg" alt="Jollof rice, plantain and chicken — local Rwandan food">
+      <div class="card-body">
+        <span class="card-icon">🍽️</span>
+        <h3>Food & Dining</h3>
+        <p>Discover Rwanda's best local dishes and hidden restaurant gems. I'll guide you to the tastiest, most authentic spots — from street food to sit-down meals that won't break the bank.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <span class="card-icon">🗺️</span>
+        <h3>Tours & Getting Around</h3>
+        <p>Want to explore Kigali, visit the gorillas, or discover national parks? I'll take you around safely and affordably, making sure you see the best Rwanda has to offer.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <span class="card-icon">🎓</span>
+        <h3>Settling In for Studies</h3>
+        <p>Moving to Rwanda for school or university? I can help you find accommodation near campus, navigate the city, and get settled in so you can focus on your studies from day one.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <span class="card-icon">🌿</span>
+        <h3>Tourism & Experiences</h3>
+        <p>From gorilla trekking in Volcanoes National Park to the vibrant streets of Kigali — I'll craft experiences that match your interests, budget, and schedule.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHO IS THIS FOR -->
+<section class="who">
+  <p class="section-label">Who this is for</p>
+  <h2 class="section-title">Are you one of these?</h2>
+  <div class="pills">
+    <span class="pill">✈️ First-time visitor to Rwanda</span>
+    <span class="pill">🎓 International student</span>
+    <span class="pill">🌍 Diaspora returning home</span>
+    <span class="pill">🦍 Wildlife & gorilla trekking fan</span>
+    <span class="pill">💼 Business traveller</span>
+    <span class="pill">🏕️ Adventure tourist</span>
+    <span class="pill">👨‍👩‍👧 Family on holiday</span>
+    <span class="pill">🤝 Volunteer or NGO worker</span>
+  </div>
+  <a class="hero-cta" href="https://wa.me/250798334383?text=Hello%20Damian!%20I%20need%20your%20help%20planning%20my%20Rwanda%20trip." target="_blank" style="animation:none;">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Yes, I need your help!
+  </a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="divider"></div>
+  <p class="section-label">Get in touch</p>
+  <h2 class="section-title">Ready to plan your Rwanda?</h2>
+  <p class="contact-desc">Send me a message on WhatsApp and tell me what you need. Whether you're landing tomorrow or planning months ahead, I'm here to help make your Rwanda experience smooth, safe, and unforgettable.</p>
+  <div class="contact-links">
+    <a class="contact-link whatsapp" href="https://wa.me/250798334383?text=Hello%20Damian!%20I%20found%20your%20page%20and%20I%20need%20help%20with%20my%20Rwanda%20visit." target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp: +250 798 334 383
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Made with ❤️ by <span>Damian</span> — Kigali, Rwanda 🇷🇼
+</footer>
+
+</body>
+</html>
